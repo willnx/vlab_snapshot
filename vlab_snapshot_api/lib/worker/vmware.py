@@ -31,8 +31,8 @@ def show_snapshot(username):
                     snap_created = snap_data[const.VLAB_SNAP_CREATED]
                     snap_exp = snap_data[const.VLAB_SNAP_EXPIRES]
                     snapshot_vms[vm.name].append({'id': snap_id,
-                                                  'created' : snap_created,
-                                                  'expires' : snap_exp})
+                                                  'created' : int(snap_created),
+                                                  'expires' : int(snap_exp)})
     return snapshot_vms
 
 
@@ -204,14 +204,23 @@ def apply_snapshot(username, snap_id, machine_name, logger):
                             logger.info("Applying snapshot {} to {}".format(snap.name, machine_name))
                             consume_task(snap.snapshot.RevertToSnapshot_Task())
                             return None
+                    else:
+                        error = 'VM has no snapshot by id {}'.format(snap_id)
+                        raise ValueError(error)
             else:
                 error = 'No VM named {} found in inventory'.format(machine_name)
                 logger.info(error)
                 raise ValueError(error)
 
 
-
 def _get_snapshots(snap_root):
+    """Traverses the snapshot tree to obtain a list of all snapshots
+
+    :Returns: List
+
+    :param snap_root: The top-level object of the snapshot tree on a Virtual Machine
+    :type snap_root: ?
+    """
     snapshots = []
     branches = [snap_root]
     while branches:
