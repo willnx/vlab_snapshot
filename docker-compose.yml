@@ -1,0 +1,39 @@
+version: '3'
+services:
+  snapshot-api:
+    ports:
+      - "5000:5000"
+    image:
+      willnx/vlab-snapshot-api
+    environment:
+      - VLAB_URL=https://localhost
+      - INF_VCENTER_SERVER=changeMe
+      - INF_VCENTER_USER=changeMe
+      - INF_VCENTER_PASSWORD=changeMe
+    volumes:
+      - ./vlab_snapshot_api:/usr/lib/python3.6/site-packages/vlab_snapshot_api
+    command: ["python3", "app.py"]
+
+  snapshot-worker:
+    image:
+      willnx/vlab-snapshot-worker
+    volumes:
+      - ./vlab_snapshot_api:/usr/lib/python3.6/site-packages/vlab_snapshot_api
+      - /mnt/raid/images/snapshot:/images:ro
+    environment:
+      - INF_VCENTER_SERVER=changeMe
+      - INF_VCENTER_USER=changeMe
+      - INF_VCENTER_PASSWORD=changeMe
+
+  snapshot-broker:
+    image:
+      rabbitmq:3.7-alpine
+
+  snapshot-reaper:
+    image:
+      willnx/vlab-snapshot-reaper
+    environment:
+      - INF_VCENTER_SERVER=changeMe
+      - INF_VCENTER_USER=changeMe
+      - INF_VCENTER_PASSWORD=changeMe
+      - INF_VCENTER_USERS_DIR=users
