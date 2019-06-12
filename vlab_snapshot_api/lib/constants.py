@@ -16,7 +16,7 @@ DEFINED = OrderedDict([
             ('INF_VCENTER_PORT', int(environ.get('INFO_VCENTER_PORT', 443))),
             ('INF_VCENTER_USER', environ.get('INF_VCENTER_USER', 'tester')),
             ('INF_VCENTER_PASSWORD', environ.get('INF_VCENTER_PASSWORD', 'a')),
-            ('INF_VCENTER_TOP_LVL_DIR', environ.get('INF_VCENTER_TOP_LVL_DIR', 'vlab')),
+            ('INF_VCENTER_USERS_DIR', environ.get('INF_VCENTER_USERS_DIR', 'vlab')),
             ('INF_VCENTER_VERIFY_CERT', environ.get('INF_VCENTER_VERIFY_CERT', False)),
             ('VLAB_MESSAGE_BROKER', environ.get('VLAB_MESSAGE_BROKER', 'snapshot-broker')),
             ('VLAB_URL', environ.get('VLAB_URL', 'https://localhost')),

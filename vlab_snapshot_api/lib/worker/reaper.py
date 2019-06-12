@@ -36,7 +36,7 @@ def reap_snapshots(vcenter, logger):
     :param logger: Handles logging messages while the reaper runs
     :type logger: logging.Logger
     """
-    all_users = vcenter.get_by_name(name='users', vimtype=vim.Folder)
+    all_users = vcenter.get_by_name(name=const.INF_VCENTER_USERS_DIR, vimtype=vim.Folder)
     for username in all_users.childEntity:
         vms = vcenter.get_by_name(name=username.name, vimtype=vim.Folder)
         for vm in vms.childEntity:
