@@ -77,4 +77,4 @@ def main(logger):
 
 
 if __name__ == '__main__':
-    main(logger=get_logger(__name__, loglevel=const.VLAB_WINDOWS_LOG_LEVEL))
+    main(logger=get_logger(__name__, loglevel=const.VLAB_SNAPSHOT_LOG_LEVEL))
