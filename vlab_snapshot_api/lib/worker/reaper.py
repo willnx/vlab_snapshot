@@ -41,7 +41,7 @@ def reap_snapshots(vcenter, logger):
         vms = vcenter.get_by_name(name=username.name, vimtype=vim.Folder)
         for vm in vms.childEntity:
             if vm.snapshot:
-                vm_snaps = _get_snapshots(vms.snapshot.rootSnapshotList)
+                vm_snaps = _get_snapshots(vm.snapshot.rootSnapshotList)
                 for snap in vm_snaps:
                     if is_expired(snap.name):
                         logger.info("deleteing snap {} of VM {} owned by {}".format(snap, vm.name, username))
