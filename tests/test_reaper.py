@@ -33,7 +33,6 @@ class TestReapSnapshots(unittest.TestCase):
         cls.logger = MagicMock()
         cls.vcenter = MagicMock()
         fake_vm = MagicMock()
-        fake_vm.snapshot = True
         fake_vms = MagicMock()
         fake_vms.childEntity = [fake_vm]
         fake_user = MagicMock()
