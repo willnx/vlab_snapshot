@@ -69,10 +69,10 @@ def delete_snapshot(username, snap_id, machine_name, logger):
                     else:
                         error = 'VM has no snapshot by ID {}'.format(snap_id)
                         raise ValueError(error)
-            else:
-                error = 'No VM named {} found in inventory'.format(machine_name)
-                logger.info(error)
-                raise ValueError(error)
+        else:
+            error = 'No VM named {} found in inventory'.format(machine_name)
+            logger.info(error)
+            raise ValueError(error)
 
 
 def create_snapshot(username, machine_name, shift, logger):
@@ -207,10 +207,10 @@ def apply_snapshot(username, snap_id, machine_name, logger):
                     else:
                         error = 'VM has no snapshot by id {}'.format(snap_id)
                         raise ValueError(error)
-            else:
-                error = 'No VM named {} found in inventory'.format(machine_name)
-                logger.info(error)
-                raise ValueError(error)
+        else:
+            error = 'No VM named {} found in inventory'.format(machine_name)
+            logger.info(error)
+            raise ValueError(error)
 
 
 def _get_snapshots(snap_root):
