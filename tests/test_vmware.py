@@ -188,6 +188,30 @@ class TestVMware(unittest.TestCase):
                                    shift=False,
                                    logger=fake_logger)
 
+    @patch.object(vmware, '_take_snapshot')
+    @patch.object(vmware, '_get_snapshots')
+    @patch.object(vmware, 'vCenter')
+    def test_create_snapshot_not_first_vm(self, fake_vCenter, fake_get_snapshots, fake_take_snapshot):
+        """``create_snapshot`` Does not raise ValueError if the first VM found is not the correct one"""
+        fake_get_snapshots.return_value = []
+        fake_take_snapshot.return_value = ('aabbcc', 1234, 2345)
+        fake_logger = MagicMock()
+        fake_vm = MagicMock()
+        fake_vm.name = 'SomeVM'
+        fake_vm2 = MagicMock()
+        fake_vm2.name = 'SomeOtherVM'
+        fake_folder = MagicMock()
+        fake_folder.childEntity = [fake_vm2, fake_vm]
+        fake_vCenter.return_value.__enter__.return_value.get_by_name.return_value = fake_folder
+
+        snap_info = vmware.create_snapshot(username='sam',
+                                           machine_name='SomeVM',
+                                           shift=False,
+                                           logger=fake_logger)
+        expected = {'SomeVM': [{'id': 'aabbcc', 'created': 1234, 'expires': 2345}]}
+
+        self.assertEqual(snap_info, expected)
+
     @patch.object(vmware.uuid, 'uuid4')
     @patch.object(vmware.time, 'time')
     @patch.object(vmware, 'consume_task')
