@@ -123,10 +123,10 @@ def create_snapshot(username, machine_name, shift, logger):
                     return {machine_name: [{'id': snap_id,
                                             'created': created,
                                             'expires': expires}]}
-            else:
-                error = 'No VM named {} found in inventory'.format(machine_name)
-                logger.info(error)
-                raise ValueError(error)
+        else:
+            error = 'No VM named {} found in inventory'.format(machine_name)
+            logger.info(error)
+            raise ValueError(error)
 
 
 def _take_snapshot(the_vm, dump_memory=True, quiesce=False, description=''):
