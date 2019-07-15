@@ -1,3 +1,8 @@
+.. iamge:: https://travis-ci.org/willnx/vlab_snapshot.svg?branch=master
+    :target: https://travis-ci.org/willnx/vlab_snapshot
+
+.. _snapshot-service:
+
 #################
 vLab Snapshot API
 #################
