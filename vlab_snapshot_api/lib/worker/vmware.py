@@ -151,7 +151,7 @@ def _take_snapshot(the_vm, dump_memory=True, quiesce=False, description=''):
     snap_id = '{}'.format(uuid.uuid4())[:6]
     expires = created + const.VLAB_SNAPSHOT_EXPIRES_AFTER
     snap_name = '{}_{}_{}'.format(snap_id, created, expires)
-    consume_task(the_vm.CreateSnapshot(snap_name, description, dump_memory, quiesce))
+    consume_task(the_vm.CreateSnapshot(snap_name, description, dump_memory, quiesce), timeout=1800)
     return snap_id, created, expires
 
 
